@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="218dp">
+
+        <ImageView
+            android:id="@+id/user_logo"
+            android:layout_width="142dp"
+            android:layout_height="92dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            app:srcCompat="@drawable/pic" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="用户名："
+            app:layout_constraintBottom_toTopOf="@+id/content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_logo" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="用户详细信息："
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录/注册"
+        android:background="@drawable/round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+    <Button
+        android:id="@+id/new_login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QQ登录"
+        android:background="@drawable/round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+
+    <Button
+        android:id="@+id/new_login_shareqq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QQ分享"
+        android:background="@drawable/round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+    <Button
+        android:id="@+id/new_login_shareqzone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QQ空间分享"
+        android:background="@drawable/round_corner_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+    <Button
+        android:id="@+id/new_login_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+
+
+</LinearLayout>
+
+
+
+
+
