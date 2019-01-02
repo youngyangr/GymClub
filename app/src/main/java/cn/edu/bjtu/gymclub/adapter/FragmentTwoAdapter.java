@@ -1,55 +1,51 @@
 package cn.edu.bjtu.gymclub.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
-import cn.edu.bjtu.gymclub.R;
-import cn.edu.bjtu.gymclub.model.News;
+import cn.edu.bjtu.gymclub.model.Trainer;
 
 
-public class FragmentTwoAdapter extends RecyclerView.Adapter<FragmentTwoAdapter.MyViewHolder>{
-    private List<News> mList;
-    public FragmentTwoAdapter(List<News> list){
-        this.mList=list;
-    }
+public class FragmentTwoAdapter extends RecyclerView.Adapter<FragmentTwoAdapter.ViewHolder>{
+    private static Cursor mCursor;
+
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item,viewGroup,false);
-        MyViewHolder holder=new MyViewHolder(view);
-        return holder;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.title.setText(mList.get(i).getTitle());
-        myViewHolder.image.setImageResource(mList.get(i).getImage());
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        if (mCursor.moveToPosition(position)) {
+            holder.mText.setText(mCursor.getString(
+                    mCursor.getColumnIndexOrThrow(Trainer.COLUMN_NAME)));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mCursor == null ? 0 : mCursor.getCount();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView title;
-        CardView cardView;
-        RelativeLayout parentLayout;
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image=itemView.findViewById(R.id.newsImage);
-            title=itemView.findViewById(R.id.newsTitle);
-            parentLayout=itemView.findViewById(R.id.parent_layout);
-            cardView=itemView.findViewById(R.id.news_cardview_item);
-        }
+    public static void setTrainers(Cursor cursor) {
+        mCursor = cursor;
+        //notifyDataSetChanged();
     }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView mText;
+
+        ViewHolder(ViewGroup parent) {
+            super(LayoutInflater.from(parent.getContext()).inflate(
+                    android.R.layout.simple_list_item_1, parent, false));
+            mText = itemView.findViewById(android.R.id.text1);
+        }
+
+    }
+
 }
+

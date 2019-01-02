@@ -1,6 +1,6 @@
 package cn.edu.bjtu.gymclub.activity;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentOne=new FragmentOne();
         fragmentTwo=new FragmentTwo();
         fragmentThree=new FragmentThree();
-        FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
+        FragmentTransaction beginTransaction=getSupportFragmentManager().beginTransaction();
         beginTransaction.add(R.id.content,fragmentOne).add(R.id.content,fragmentTwo).add(R.id.content,fragmentThree);//开启一个事务将fragment动态加载到组件
         beginTransaction.hide(fragmentOne).hide(fragmentTwo).hide(fragmentThree);//隐藏fragment
         beginTransaction.addToBackStack(null);//返回到上一个显示的fragment
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNav(int navid){
-        FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
+        FragmentTransaction beginTransaction=getSupportFragmentManager().beginTransaction();
         switch (navid){
             case R.id.navigation_home:
                 beginTransaction.hide(fragmentTwo).hide(fragmentThree);

@@ -1,9 +1,13 @@
 package cn.edu.bjtu.gymclub.fragment;
 
-import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +21,12 @@ import java.util.List;
 import cn.edu.bjtu.gymclub.R;
 import cn.edu.bjtu.gymclub.adapter.FragmentTwoAdapter;
 import cn.edu.bjtu.gymclub.model.News;
+import cn.edu.bjtu.gymclub.model.Trainer;
+import cn.edu.bjtu.gymclub.provider.TrainerContentProvider;
 
 
 public class FragmentTwo extends Fragment {
+    private static final int LOADER_TRAINERS = 1;
     private RecyclerView rv;
     private FragmentTwoAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -36,10 +43,51 @@ public class FragmentTwo extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
         rv.setItemAnimator(new DefaultItemAnimator());
-        mAdapter=new FragmentTwoAdapter(mList);
+        mAdapter=new FragmentTwoAdapter();
         rv.setAdapter(mAdapter);
+
+        getLoaderManager().initLoader(LOADER_TRAINERS, null,mLoaderCallbacks);
+
         return view;
     }
+
+    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks =
+            new LoaderManager.LoaderCallbacks<Cursor>() {
+
+                @Override
+                public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                    switch (id) {
+                        case LOADER_TRAINERS:
+                            return new CursorLoader(getActivity().getApplicationContext(),
+                                    TrainerContentProvider.URI_CHEESE,
+                                    new String[]{Trainer.COLUMN_NAME},
+                                    null, null, null);
+                        default:
+                            throw new IllegalArgumentException();
+                    }
+                }
+
+                @Override
+                public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                    switch (loader.getId()) {
+                        case LOADER_TRAINERS:
+                            FragmentTwoAdapter.setTrainers(data);
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                    }
+                }
+
+                @Override
+                public void onLoaderReset(Loader<Cursor> loader) {
+                    switch (loader.getId()) {
+                        case LOADER_TRAINERS:
+                            FragmentTwoAdapter.setTrainers(null);
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                    }
+                }
+
+            };
 
     private void initNews(){
         News news1=new News("健身者必须注意的五个事项",R.drawable.pic);
